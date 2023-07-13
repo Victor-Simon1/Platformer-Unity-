@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     #region variable
     
-   [SerializeField]  private float horizontal;
+   [SerializeField]  private float horizontalMovement;
    [SerializeField] private StatsCharacter player;
    // private float speed = 8f;
    // private float jumpPower= 16f;
@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Animator animator;
+    private bool climbLadder;
+    private Vector3 velocity;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -25,23 +28,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       horizontal = Input.GetAxisRaw("Horizontal"); 
+       horizontalMovement = Input.GetAxisRaw("Horizontal")*player.speed * Time.deltaTime; 
        if(Input.GetButtonDown("Jump") && IsGrounded()) Jump();
        if(Input.GetButtonDown("Jump") && rb.velocity.y >0f)
             rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y*0.5f);
+    
     }
 
     void FixedUpdate() 
     {
-        rb.velocity = new Vector2(horizontal*player.speed,rb.velocity.y);
+        Move();
+        animator.SetFloat("Speed",Mathf.Abs(rb.velocity.x));
+        Debug.Log(animator.GetFloat("Speed"));
     }
 
 
     #region privateFunction
 
+    private void Move()
+    {
+        rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(horizontalMovement,rb.velocity.y),ref velocity,.05f);
+    }
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x,player.jumpPower);
+        rb.AddForce(new Vector2(0,player.jumpPower));
+   
     }
     private bool IsGrounded()
     {
