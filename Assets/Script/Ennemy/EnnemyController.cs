@@ -73,4 +73,12 @@ public class EnnemyController : MonoBehaviour
             target = null;
         }
     }
+     private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if("Player".Equals(other.transform.tag))
+        {
+            PlayerHealth playerHealth = other.transform.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage(20);
+        }
+    }
 }
