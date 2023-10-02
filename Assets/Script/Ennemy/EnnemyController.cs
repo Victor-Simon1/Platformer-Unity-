@@ -78,7 +78,9 @@ public class EnnemyController : MonoBehaviour
         if("Player".Equals(other.transform.tag))
         {
             PlayerHealth playerHealth = other.transform.GetComponent<PlayerHealth>();
+            
             playerHealth.TakeDamage(20);
+           
         }
     }
 }

@@ -17,11 +17,11 @@ public class EnnemyDeath : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        Debug.Log(tag);
         if("Player".Equals(other.tag))
         {
-            Debug.Log("Ennemy deaht");
             transform.parent.parent.gameObject.SetActive(false);
+            PlayerLevel playerLevel = other.transform.GetComponent<PlayerLevel>();
+            playerLevel.AddXp(110);
         }
     }
 }

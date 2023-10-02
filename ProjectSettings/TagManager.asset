@@ -9,6 +9,7 @@ TagManager:
   - Ennemy
   - ColliderEnnemy
   - TriggerDeath
+  - InteractUI
   layers:
   - Default
   - TransparentFX
