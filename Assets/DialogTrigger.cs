@@ -42,6 +42,7 @@ public class DialogTrigger : MonoBehaviour
 
     void TriggerDialog()
     {
+        interactUI.enabled = false;
         DialogManager.instance.StartDialog(dialog);
     }
 }

@@ -13,7 +13,7 @@ public class PlayerLevel : MonoBehaviour
     {
         currentXp = 0;
         maxXp = 100;
-        xpBar.SetLevel(currentXp,maxXp);
+        xpBar.SetLevel(currentXp,maxXp,level);
     }
 
    public void PassLevel()
@@ -21,12 +21,11 @@ public class PlayerLevel : MonoBehaviour
         level++;
         currentXp -= maxXp;
         maxXp = maxXp + (int)(0.2f*maxXp);
-        xpBar.SetLevel(currentXp,maxXp);
+        xpBar.SetLevel(currentXp,maxXp,level);
    }
 
    public void AddXp(int xp)
    {
-        Debug.Log("Xp");
         currentXp += xp;
         if(currentXp>=maxXp)PassLevel();
         else xpBar.AddXp(xp);

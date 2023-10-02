@@ -6,7 +6,6 @@ using UnityEngine;
 public class DialogManager : MonoBehaviour
 {
     public static DialogManager instance;
-
     public Animator animator;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI dialogText;
