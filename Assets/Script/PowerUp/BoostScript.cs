@@ -8,6 +8,11 @@ public class BoostScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        boostEffect.Apply(collider.gameObject);
+        if(collider.CompareTag("Player"))
+        {
+            boostEffect.Apply(collider.gameObject);
+            Destroy(gameObject);
+        }
+
     }
 }

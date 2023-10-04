@@ -36,7 +36,13 @@ public class PlayerHealth : MonoBehaviour
         }
         
     }
-
+    
+    public void HealPlayer(int amount)
+    {
+        if(health+amount>maxHealth) health= maxHealth;
+        else health+= amount;
+        healthBar.SetHealth(health);
+    }
     public IEnumerator InvincibilityFlash()
     {
         while(isInvisible)
