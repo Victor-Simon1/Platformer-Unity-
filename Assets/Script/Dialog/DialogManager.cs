@@ -43,6 +43,7 @@ public class DialogManager : MonoBehaviour
             return;
         }
         string sentence = sentences.Dequeue();
+        Debug.Log("On CLikc");
         //dialogText.text = sentence;
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));

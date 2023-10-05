@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     #region variable
     
    [SerializeField]  private float horizontalMovement;
+   [SerializeField]  private float verticalMovement;
    [SerializeField] private StatsCharacter player;
    // private float speed = 8f;
    // private float jumpPower= 16f;
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Animator animator;
     private SpriteRenderer sprite;
-    private bool climbLadder;
+    public bool isClimbing;
     private Vector3 velocity;
     #endregion
     // Start is called before the first frame update
@@ -31,22 +32,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       horizontalMovement = Input.GetAxisRaw("Horizontal")*player.speed * Time.deltaTime; 
-       if(Input.GetButtonDown("Jump") && IsGrounded()) Jump();
-       if(Input.GetButtonDown("Jump") && rb.velocity.y >0f)
+        horizontalMovement = Input.GetAxisRaw("Horizontal")*player.speed * Time.deltaTime; 
+        verticalMovement = Input.GetAxisRaw("Vertical")*player.speed * Time.deltaTime; 
+        if(Input.GetButtonDown("Jump") && IsGrounded() && !isClimbing) Jump();
+        if(Input.GetButtonDown("Jump") && rb.velocity.y >0f && !isClimbing)
             rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y*0.5f);
 
         if(horizontalMovement <0f)
         {
             sprite.flipX = true;
         }
-        else if(horizontalMovement >0f)
+        else if(horizontalMovement >=0f)
         {
             sprite.flipX = false;
-        }
-        else
-        {
-
         }
     }
 
@@ -67,7 +65,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(horizontalMovement,rb.velocity.y),ref velocity,.05f);
+        if(!isClimbing)
+        {
+            rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(horizontalMovement,rb.velocity.y),ref velocity,.05f);
+        }
+        else
+        {
+            rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(rb.velocity.x,verticalMovement),ref velocity,.05f);
+        }
+       
     }
     private void Jump()
     {
