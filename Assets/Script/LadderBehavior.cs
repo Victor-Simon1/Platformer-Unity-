@@ -42,4 +42,13 @@ public class LadderBehavior : MonoBehaviour
             colliderGround.isTrigger = false;
         }
     }
+   /* private void OnCollisionExit2D(Collision2D collider) 
+    {
+        if(collider.CompareTag("Player"))
+        {
+            isInRange = false;
+            playerController.isClimbing = false;
+            colliderGround.isTrigger = false;
+        }
+    }*/
 }

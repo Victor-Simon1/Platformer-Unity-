@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6566308549510870981}
   - component: {fileID: 6566308549510870980}
   - component: {fileID: 6600568578187627487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,9 +118,9 @@ GameObject:
   - component: {fileID: 6566308550104533433}
   - component: {fileID: 6566308550104533432}
   - component: {fileID: 7317974093161641432}
-  - component: {fileID: 2358294265310593120}
-  - component: {fileID: 8397477530725397038}
-  m_Layer: 0
+  - component: {fileID: 5143009468874136021}
+  - component: {fileID: 1991490314}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalMovement: 0
+  verticalMovement: 0
   player: {fileID: 11400000, guid: f688408622e17f048a73c1f559eefec2, type: 2}
   rb: {fileID: 6566308550104533433}
   groundCheck: {fileID: 6566308551028535557}
@@ -186,6 +187,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 6600568578187627487}
+  isClimbing: 0
 --- !u!58 &7317974093161641432
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -202,7 +204,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.31747103}
   serializedVersion: 2
   m_Radius: 0.68033886
---- !u!114 &2358294265310593120
+--- !u!114 &5143009468874136021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,14 +213,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6566308550104533436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99864f33a71b5c8428965fedce67fce5, type: 3}
+  m_Script: {fileID: 11500000, guid: 90cd7898ed1d5e946a47f521185eeac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 0
   healthBar: {fileID: 0}
   graphics: {fileID: 6566308549510870980}
---- !u!114 &8397477530725397038
+  level: 0
+  currentXp: 0
+  maxXp: 0
+  xpBar: {fileID: 0}
+--- !u!114 &1991490314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,13 +233,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 6566308550104533436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575904d7b0462974eacada89cd98da35, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  currentXp: 0
-  maxXp: 0
-  xpBar: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: 55652257d0ba32948873305e56938ea9, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7af8ee0d-9b27-498c-848f-5d5597a229e1
+    m_ActionName: Player/Movement[/Keyboard/z,/Keyboard/q,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6566308550104533432}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dafe5a69-f390-4d96-bb78-dd8557c30794
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae2de224-6094-4bab-9d36-767898e6bffc
+    m_ActionName: Player/OpenChest[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4de5132a-3241-486a-959c-8ff6afed3a02
+    m_ActionName: Player/TalkToVillager[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28bd4154-6e7f-44c3-9949-43dc7b000707
+    m_ActionName: Game/Pause[/Keyboard/p]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &6566308551028535562
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6566308551028535557}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +329,7 @@ GameObject:
   - component: {fileID: 6566308551385982578}
   - component: {fileID: 6566308551385982576}
   - component: {fileID: 6566308551385982579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

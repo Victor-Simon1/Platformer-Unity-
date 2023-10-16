@@ -14,7 +14,8 @@ public class Chest : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && isInRange)
+        float input = PlayerController.instance.input.Player.OpenChest.ReadValue<float>();
+        if(input!=0f && isInRange)
         {
             OpenChest();
         }

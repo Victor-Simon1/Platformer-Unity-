@@ -8,6 +8,20 @@ public class PlayerHealth : MonoBehaviour
     public HealthBar healthBar;
     public SpriteRenderer graphics;
     private float invicibilityFlashTime = 0.2f;
+
+
+    public static PlayerHealth instance;
+
+
+    private void Awake()
+    {
+        if(instance!=null)
+        {
+            Debug.LogError("Already have PlayerHealthScript");
+            return;
+        }
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(!isInvisible)
         {
-            health -=20;
+            health -=damage;
             healthBar.SetHealth(health);
             isInvisible = true;
             StartCoroutine(InvincibilityFlash());

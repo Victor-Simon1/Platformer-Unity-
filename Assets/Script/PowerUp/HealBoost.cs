@@ -8,7 +8,7 @@ public class HealBoost : BoostEffect
     public override void Apply(GameObject target)
     {
        
-        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
+        Player playerHealth = target.GetComponent<Player>();
         playerHealth.HealPlayer(amount);
     }
 }

@@ -17,7 +17,7 @@ public class DialogTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isInRange && Input.GetKeyDown(KeyCode.E))
+        if(isInRange && PlayerController.instance.input.Player.TalkToVillager.IsPressed())
             TriggerDialog();
     }
 

@@ -12,11 +12,12 @@ TagManager:
   - InteractUI
   - PlayerSpawn
   - FadeSystem
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground

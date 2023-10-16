@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Player
   hp: 10
   atk: 2
-  speed: 3000
-  jumpPower: 300
+  speed: 10
+  jumpPower: 600

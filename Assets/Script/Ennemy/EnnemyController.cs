@@ -4,21 +4,25 @@ using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnnemyController : MonoBehaviour
+public abstract class EnnemyController : MonoBehaviour
 {
-    [SerializeField] private StatsCharacter stats;
+    [SerializeField] protected StatsCharacter stats;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject leftStop;
     [SerializeField] private GameObject rightStop;
     private Vector3 velocity;
     private SpriteRenderer sprite;
     private GameObject target;
+    private GameObject parent;
     private float dir = 1f;
+    [SerializeField]protected float actualSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        parent = transform.parent.gameObject;
+        actualSpeed = stats.speed;
     }
 
     // Update is called once per frame
@@ -27,12 +31,18 @@ public class EnnemyController : MonoBehaviour
         if(transform.position.x > rightStop.transform.position.x) 
         {
             dir = -1f;
-            sprite.flipX = true;
+            //sprite.flipX = true;
+            Vector3 scale =transform.localScale ;
+            scale.Set(-1f,scale.y,scale.z);
+            transform.localScale = scale;
         }
         if(transform.position.x < leftStop.transform.position.x) 
         {
             dir = 1f;
-            sprite.flipX = false;
+            //sprite.flipX = false;
+            Vector3 scale = transform.localScale ;
+            scale.Set(1f,scale.y,scale.z);
+            transform.localScale = scale;
         }
     }
 
@@ -40,25 +50,27 @@ public class EnnemyController : MonoBehaviour
     {
         Move();
     }
-    private void Move()
+    protected void Move()
     {
         if(!target)
         {
-            float horizontalMovement = stats.speed * Time.deltaTime * dir ;
+            float horizontalMovement = actualSpeed * Time.deltaTime * dir ;
             rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(horizontalMovement,rb.velocity.y),ref velocity,.05f);
         }
-        else GoToTarget(target,stats.speed * Time.deltaTime);
+        else GoToTarget(target,actualSpeed * Time.deltaTime);
     }
 
 
     private void GoToTarget(GameObject target,float step)
     {
         sprite.flipX = Mathf.Sign(target.transform.position.x -transform.position.x) == -1;
-        float horizontalMovement = stats.speed * Time.deltaTime * Mathf.Sign(target.transform.position.x -transform.position.x  );
+        float horizontalMovement = actualSpeed * Time.deltaTime * Mathf.Sign(target.transform.position.x -transform.position.x  );
         rb.velocity = Vector3.SmoothDamp(rb.velocity,new Vector2(horizontalMovement,rb.velocity.y),ref velocity,.05f);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    protected abstract void OnDrawGizmos();
+    protected abstract void DamagePlayer();
+   /* private void OnTriggerEnter2D(Collider2D other) 
     {
         if("Player".Equals(other.tag) )
         {
@@ -72,8 +84,8 @@ public class EnnemyController : MonoBehaviour
         {
             target = null;
         }
-    }
-     private void OnCollisionEnter2D(Collision2D other) 
+    }*/
+     /*private void OnCollisionEnter2D(Collision2D other) 
     {
         if("Player".Equals(other.transform.tag))
         {
@@ -82,5 +94,5 @@ public class EnnemyController : MonoBehaviour
             playerHealth.TakeDamage(20);
            
         }
-    }
+    }*/
 }
